@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=de\ para\ mensaje
+comment0.target=MailItem(java.lang.String,\ java.lang.String,\ java.lang.String)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ MailItem\r\n
+comment1.params=
+comment1.target=java.lang.String\ getFrom()
+comment1.text=\r\n\ Devuelve\ el\ nombre\ de\ la\ persona\ que\ ha\ enviado\ el\ mensaje.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getTo()
+comment2.text=\r\n\ Devuelve\ el\ nombre\ de\ la\ persona\ que\ ha\ recibido\ el\ mensaje.\r\n
+comment3.params=
+comment3.target=java.lang.String\ getMessage()
+comment3.text=\r\n\ Devuelve\ el\ contenido\ del\ mensaje.\r\n
+comment4.params=
+comment4.target=void\ printMail()
+comment4.text=\r\n\ Imprime\ en\ la\ pantalla\ los\ atributos\ del\ objeto.\r\n
+numComments=5
