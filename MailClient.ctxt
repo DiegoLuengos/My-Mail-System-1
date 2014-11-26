@@ -14,4 +14,6 @@ comment3.text=\r\n\ Env\u00EDa\ un\ mensaje\ a\ un\ usuario\ dado\ con\ el\ cont
 comment4.params=
 comment4.target=int\ howManyMails()
 comment4.text=Devuelve\ la\ cantidad\ de\ correos\ que\ hay\ en\ el\ servidor\ para\r\n\ ese\ cliente\ y\ lo\ imprime\ en\ la\ pantalla.\r\n
-numComments=5
+comment5.params=
+comment5.target=void\ getNextMailItemAutoRespond()
+numComments=6
