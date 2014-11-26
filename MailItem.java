@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class MailItem here.
+ * Esta clase representa un mensaje de email.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -8,20 +8,20 @@
 public class MailItem
 {
     // El que envía el mensaje.
-    private String From;
+    private String from;
     // El que lo recibe.
-    private String To;
+    private String to;
     // El mensaje.
-    private String Message;
+    private String message;
 
     /**
      * Constructor for objects of class MailItem
      */
-    public MailItem(String de, String para, String mensaje)
+    public MailItem(String from, String to, String message)
     {
-         From = de;
-         To = para;
-         Message = mensaje;
+         this.from = from;
+         this.to = to;
+         this.message = message;
     }
 
     /**
@@ -29,7 +29,7 @@ public class MailItem
      */
     public String getFrom()
     {
-        return From;
+        return from;
     }
     
     /**
@@ -37,7 +37,7 @@ public class MailItem
      */
     public String getTo()
     {
-        return To;
+        return to;
     }
     
     /**
@@ -45,16 +45,17 @@ public class MailItem
      */
     public String getMessage()
     {
-        return Message;
+        return message;
     }
     
     /**
-     * Imprime en la pantalla los atributos del objeto.
+     * Imprime en la pantalla los datos del email:
+     * dirección de origen, dirección de destino y contenido.
      */
-    public void printMail()
+    public void print()
     {
-        System.out.println("De: " + From);
-        System.out.println("Para: " + To);
-        System.out.println("Mensaje: " + Message);
+        System.out.println("De: " + from);
+        System.out.println("Para: " + to);
+        System.out.println("Mensaje: " + message);
     }
 }

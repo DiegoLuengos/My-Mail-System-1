@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class MailClient here.
+ * Representa un cliente de correo electrónico.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -15,10 +15,10 @@ public class MailClient
     /**
      * Constructor for objects of class MailClient
      */
-    public MailClient(MailServer servidor, String usuario)
+    public MailClient(MailServer server, String user)
     {
-       server = servidor;
-       user = usuario;
+       this.server = server;
+       this.user = user;
     }
 
     /**
@@ -27,31 +27,32 @@ public class MailClient
     public MailItem getNextMailItem()
     {
       return server.getNextMailItem(user);
+      
     }
     
     /**
-     * Devuelve del servidor el siguiente correo e imprime los datos de dicho mensaje.
+     * Obtiene del servidor el siguiente correo del usuario
+     * y lo imprime en la pantalla. Si no había correos en el
+     * servidor informa de ello.
      */
     public void printNextMailItem()
     {
-        MailItem item;
-        item = server.getNextMailItem(user);
-        if (item == null) {
+        MailItem email = server.getNextMailItem(user);
+        if (email == null) {
             System.out.println("No hay mensajes nuevos");
         }
         else {
-            item.printMail();
+            email.print();
         }
     }
     
     /**
-     * Envía un mensaje a un usuario dado.
+     * Envía un mensaje a un usuario dado con el contenido pasado por parámetro.
      */
-    public void sendMailItem(String para, String mensaje)
+    public void sendMailItem(String address, String message)
     {
-        MailItem mensaje1;
-        mensaje1 = new MailItem(user, para, mensaje);
-        server.post(mensaje1);
+        MailItem emailToSend = new MailItem(user, address, message);
+        server.post(emailToSend);
     }
 }
         
