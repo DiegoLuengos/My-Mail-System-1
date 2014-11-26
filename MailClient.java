@@ -54,5 +54,14 @@ public class MailClient
         MailItem emailToSend = new MailItem(user, address, subject, message);
         server.post(emailToSend);
     }
+    
+    /**Devuelve la cantidad de correos que hay en el servidor para
+     * ese cliente y lo imprime en la pantalla.
+     */
+    public int howManyMails()
+    {
+        System.out.println("Tienes" + server.howManyMailItems(user) + "mensajes nuevos");
+        return server.howManyMailItems(user);
+    }
 }
         
