@@ -49,9 +49,9 @@ public class MailClient
     /**
      * Envía un mensaje a un usuario dado con el contenido pasado por parámetro.
      */
-    public void sendMailItem(String address, String message)
+    public void sendMailItem(String address, String subject, String message)
     {
-        MailItem emailToSend = new MailItem(user, address, message);
+        MailItem emailToSend = new MailItem(user, address, subject, message);
         server.post(emailToSend);
     }
 }
