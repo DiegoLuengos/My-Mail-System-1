@@ -11,7 +11,8 @@ public class MailClient
     private MailServer server;
     // Representa la dirección de correo del usuario que usa ese cliente.
     private String user;
-
+    //Guarda el último corre recibido.
+    private MailItem savedMail;
     /**
      * Constructor for objects of class MailClient
      */
@@ -26,8 +27,9 @@ public class MailClient
      */
     public MailItem getNextMailItem()
     {
-      return server.getNextMailItem(user);
-      
+        MailItem email = server.getNextMailItem(user);
+        savedMail = email;
+        return email;
     }
     
     /**
@@ -43,6 +45,7 @@ public class MailClient
         }
         else {
             email.print();
+            savedMail = email;
         }
     }
     
@@ -55,22 +58,43 @@ public class MailClient
         server.post(emailToSend);
     }
     
-    /**Devuelve la cantidad de correos que hay en el servidor para
-     * ese cliente y lo imprime en la pantalla.
+    /**Método que imprime por pantalla los mensajes que tiene
+     * el usuario que está utilizando el cliente.
      */
-    public int howManyMails()
+    public void howManyMails()
     {
-        System.out.println("Tienes" + server.howManyMailItems(user) + "mensajes nuevos");
-        return server.howManyMailItems(user);
+        System.out.println("Número de emails en el servidor: " + server.howManyMailItems(user));
     }
     
+    /**
+     * Método que descarga un email y lo responde automáticamente
+     * con un mensaje predefinido.
+     */
     public void getNextMailItemAutoRespond()
     {
-        MailItem item = server.getNextMailItem(user);
-        String newSubject = "RE: " + item.getSubject();
-        String newMessage = "" + item.getMessage() + "\nAutorrespuesta: Estamos de vacaciones";
-        MailItem newMail = new MailItem(item.getTo(), item.getFrom(), newSubject, newMessage);
-        server.post(newMail);
+        MailItem email = server.getNextMailItem(user);
+        if (email != null) {
+            String newTo = email.getFrom();
+            String newSubject = "RE: " + email.getSubject();
+            String newMessage = "Estamos de vacaciones.\n" + email.getMessage();
+            MailItem newMail = new MailItem(user, newTo, newSubject, newMessage);
+            server.post(newMail);
+        }
+    }
+    
+    /**
+     * Método que permite que podamos ver por pantalla cuantas veces queramos
+     * los datos del último mensaje recibido.
+     */
+    public void printLastMailItem()
+    {
+        if (savedMail == null) {
+            System.out.println("No hay mensajes nuevos");
+        }
+        else {
+            savedMail.print();
+        }
     }
 }
+
         
