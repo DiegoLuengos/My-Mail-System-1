@@ -11,7 +11,7 @@ public class MailClient
     private MailServer server;
     // Representa la dirección de correo del usuario que usa ese cliente.
     private String user;
-    //Guarda el último corre recibido.
+    //Guarda el último correo recibido.
     private MailItem savedMail;
     /**
      * Constructor for objects of class MailClient
@@ -20,15 +20,19 @@ public class MailClient
     {
        this.server = server;
        this.user = user;
+       savedMail = null;
     }
 
     /**
-     * Devuelve del servidor el siguiente correo que tenga el usuario. 
+     * Devuelve del servidor el siguiente correo que tenga el usuario, en caso de no haber correos 
+     * devuelve null.
      */
     public MailItem getNextMailItem()
     {
         MailItem email = server.getNextMailItem(user);
-        savedMail = email;
+        if (email != null) {
+            savedMail = email;
+        }
         return email;
     }
     
@@ -44,8 +48,22 @@ public class MailClient
             System.out.println("No hay mensajes nuevos");
         }
         else {
-            email.print();
-            savedMail = email;
+            //Aquí van las comprobaciones de si un email es spam.
+            boolean isSpam = false;
+            String message = email.getMessage();
+            if ((message.contains("oferta") || message.contains("viagra")) && !message.contains("proyecto")){
+                //Seguramente es spam.
+                isSpam = true;
+                }
+                
+            if (isSpam) {
+                //Cosas que hacer si es spam.
+                email = null;
+            }
+            else {
+                //Cosas que hacer si no es spam.
+                savedMail = email;
+            }
         }
     }
     
@@ -88,11 +106,11 @@ public class MailClient
      */
     public void printLastMailItem()
     {
-        if (savedMail == null) {
-            System.out.println("No hay mensajes nuevos");
+        if (savedMail != null) {
+            savedMail.print();
         }
         else {
-            savedMail.print();
+            System.out.println("No hay mensajes nuevos");
         }
     }
 }
