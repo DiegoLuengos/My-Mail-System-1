@@ -31,7 +31,14 @@ public class MailClient
     {
         MailItem email = server.getNextMailItem(user);
         if (email != null) {
-            savedMail = email;
+            if (isSpam(email)) {
+                //Cosas que hacer si es spam.
+                email = null;
+            }
+            else {
+                //Cosas que hacer si no es spam.
+                savedMail = email;
+            }
         }
         return email;
     }
@@ -45,23 +52,16 @@ public class MailClient
     {
         MailItem email = server.getNextMailItem(user);
         if (email == null) {
-            System.out.println("No hay mensajes nuevos");
+            System.out.println("Se ha recibido un email con spam");
         }
         else {
-            //Aquí van las comprobaciones de si un email es spam.
-            boolean isSpam = false;
-            String message = email.getMessage();
-            if ((message.contains("oferta") || message.contains("viagra")) && !message.contains("proyecto")){
-                //Seguramente es spam.
-                isSpam = true;
-                }
-                
-            if (isSpam) {
+            if (isSpam(email)) {
                 //Cosas que hacer si es spam.
-                email = null;
+                System.out.println("Se ha recibido un email con spam");
             }
             else {
                 //Cosas que hacer si no es spam.
+                email.print();
                 savedMail = email;
             }
         }
@@ -113,6 +113,21 @@ public class MailClient
             System.out.println("No hay mensajes nuevos");
         }
     }
+    
+    /**
+     * Analiza un email dado y devuelve si es spam o no.
+     */
+    private boolean isSpam(MailItem email)
+    {
+        boolean isEmailWithSpam = false;
+        String message = email.getMessage();
+        if ((message.contains("oferta") || message.contains("viagra")) && !message.contains("proyecto")) {
+            //Es spam.
+            isEmailWithSpam = true;
+        }
+        return isEmailWithSpam;
+    }
 }
+
 
         
